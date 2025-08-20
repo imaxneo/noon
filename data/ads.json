@@ -1,0 +1,21 @@
+{
+  "banners": [
+    {
+      "id": "footer-1",
+      "type": "image",
+      "src": "/ads/banner1.png",
+      "href": "#",
+      "alt": "إعلان مفيد",
+      "placement": "footer"
+    },
+    {
+      "id": "inline-1",
+      "type": "image",
+      "src": "/ads/banner2.png",
+      "href": "#",
+      "alt": "إعلان مفيد",
+      "placement": "inline",
+      "every": 4
+    }
+  ]
+}

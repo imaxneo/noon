@@ -1,0 +1,49 @@
+{
+  "name": "نور - رفيق يومك للذكر",
+  "short_name": "نور",
+  "description": "موقع نور للأذكار اليومية - أذكار الصباح والمساء والنوم، الصلاة الإبراهيمية والاستغفار. صدقة جارية لتسهيل الذكر والدعاء.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#16a34a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["religious", "lifestyle", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "أذكار الصباح",
+      "short_name": "صباح",
+      "description": "أذكار الصباح اليومية",
+      "url": "/azkar/sabah"
+    },
+    {
+      "name": "أذكار المساء",
+      "short_name": "مساء",
+      "description": "أذكار المساء اليومية",
+      "url": "/azkar/masaa"
+    },
+    {
+      "name": "أذكار النوم",
+      "short_name": "نوم",
+      "description": "أذكار النوم اليومية",
+      "url": "/azkar/sleep"
+    }
+  ],
+
+}

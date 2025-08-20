@@ -1,0 +1,34 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#16a34a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#15803d;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="1100" cy="530" r="120" fill="rgba(255,255,255,0.1)"/>
+  <circle cx="1000" cy="100" r="60" fill="rgba(255,255,255,0.1)"/>
+  
+  <!-- Main content -->
+  <g transform="translate(600,315)">
+    <!-- Icon -->
+    <circle cx="0" cy="-80" r="60" fill="rgba(255,255,255,0.9)"/>
+    <text x="0" y="-70" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" fill="#16a34a">🌟</text>
+    
+    <!-- Title -->
+    <text x="0" y="0" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white">نور</text>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="rgba(255,255,255,0.9)">رفيق يومك للذكر</text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="rgba(255,255,255,0.8)">أذكار الصباح والمساء والنوم</text>
+    <text x="0" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.7)">موقع بسيط وخفيف للأذكار اليومية</text>
+  </g>
+  
+  <!-- Bottom text -->
+  <text x="600" y="580" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.6)">صدقة جارية - لا تتبع للخصوصية</text>
+</svg>

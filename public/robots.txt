@@ -1,0 +1,29 @@
+# robots.txt for نور - رفيق يومك للذكر
+# https://noor-app.vercel.app
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# منع الوصول للملفات الحساسة
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
+
+# السماح لمحركات البحث
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+
+# خريطة الموقع
+Sitemap: https://noor-app.vercel.app/sitemap.xml
+
+# معلومات إضافية
+Crawl-delay: 1
