@@ -30,7 +30,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://noor-app.vercel.app/sitemap.xml',
-    host: 'https://noor-app.vercel.app',
+    sitemap: 'https://www.kintego.site/sitemap.xml',
+    host: 'https://www.kintego.site',
   }
 }
