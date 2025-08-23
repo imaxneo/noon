@@ -33,6 +33,7 @@ const CurrentUsersBadge = dynamic(() => import("@/components/current-users-badge
   )
 })
 import { StructuredData } from "@/components/structured-data"
+import Script from "next/script"
 import { 
   BookOpen, 
   Shield, 
@@ -284,11 +285,12 @@ export default function HomePage() {
       </div>
       
       {/* PropellerAds Script */}
-      <script
+      <Script
         src="https://fpyf8.com/88/tag.min.js"
         data-zone="165682"
         async
         data-cfasync="false"
+        strategy="afterInteractive"
       />
 
       {/* Footer */}
