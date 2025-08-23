@@ -3,6 +3,7 @@ import { Cairo } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { DuaModalWrapper } from "@/components/dua-modal-wrapper";
+import { Analytics } from "@vercel/analytics/next"
 
 const cairo = Cairo({
   variable: "--font-cairo",
@@ -142,7 +143,7 @@ export default function RootLayout({
             {children}
           </main>
         </ThemeProvider>
-        
+        <Analytics />
         {/* Screen reader announcements */}
         <div aria-live="polite" aria-atomic="true" className="sr-only" id="announcements"></div>
       </body>
