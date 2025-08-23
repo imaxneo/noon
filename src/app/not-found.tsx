@@ -84,7 +84,7 @@ export default function NotFound() {
       {/* Footer */}
       <div className="absolute bottom-8 text-center">
         <p className="text-sm text-muted-foreground">
-          © 2024 نور - رفيق يومك للذكر. جميع الحقوق محفوظة.
+          © {new Date().getFullYear()} نور - رفيق يومك للذكر. جميع الحقوق محفوظة.
         </p>
       </div>
     </div>

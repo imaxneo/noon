@@ -149,7 +149,7 @@ export function StructuredData({
         "https://twitter.com/noor_app",
         "https://facebook.com/noorapp"
       ],
-      "foundingDate": "2024",
+  "foundingDate": new Date().getFullYear().toString(),
       "areaServed": "Worldwide",
       "serviceType": "Islamic Content",
       "category": "Religious"
