@@ -13,14 +13,14 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://noor-app.vercel.app'),
+  metadataBase: new URL('https://kintego.site'),
   title: {
     default: "نور - رفيق يومك للذكر | أذكار الصباح والمساء والنوم",
     template: "%s | نور - رفيق يومك للذكر"
   },
   description: "موقع نور للأذكار اليومية - أذكار الصباح والمساء والنوم، الصلاة الإبراهيمية والاستغفار. صدقة جارية لتسهيل الذكر والدعاء مع حفظ التقدم محلياً. موقع بسيط وسريع بدون تتبع للخصوصية.",
   keywords: ["أذكار", "ذكر", "دعاء", "صباح", "مساء", "نوم", "إسلامي", "قرآن", "حديث", "صدقة جارية", "الصلاة الإبراهيمية", "استغفار", "تسبيح", "تحميد", "أذكار يومية", "حصن المسلم"],
-  authors: [{ name: "فريق نور", url: "https://noor-app.vercel.app" }],
+  authors: [{ name: "فريق نور", url: "https://kintego.site" }],
   creator: "فريق نور",
   publisher: "نور - رفيق يومك للذكر",
   formatDetection: {
@@ -42,16 +42,16 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://noor-app.vercel.app',
+    canonical: 'https://kintego.site',
     languages: {
-      'ar': 'https://noor-app.vercel.app',
-      'ar-SA': 'https://noor-app.vercel.app',
+      'ar': 'https://kintego.site',
+      'ar-SA': 'https://kintego.site',
     },
   },
   openGraph: {
     type: "website",
     locale: "ar_SA",
-    url: "https://noor-app.vercel.app",
+    url: "https://kintego.site",
     title: "نور - رفيق يومك للذكر | أذكار الصباح والمساء والنوم",
     description: "موقع نور للأذكار اليومية - أذكار الصباح والمساء والنوم، الصلاة الإبراهيمية والاستغفار. صدقة جارية لتسهيل الذكر والدعاء.",
     siteName: "نور - رفيق يومك للذكر",
@@ -126,6 +126,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         
 
+        <link rel="canonical" href="https://kintego.site" />
       </head>
       <body className={`${cairo.variable} font-sans antialiased`}>
         {/* Skip to main content for screen readers */}
