@@ -16,6 +16,12 @@
       "alt": "إعلان مفيد",
       "placement": "inline",
       "every": 4
+    },
+    {
+      "id": "propeller-zone-165682",
+      "type": "propeller",
+      "script": "<script src=\"https://fpyf8.com/88/tag.min.js\" data-zone=\"165682\" async data-cfasync=\"false\"></script>",
+      "placement": "header"
     }
   ]
 }

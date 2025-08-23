@@ -268,8 +268,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Ad Banner */}
-      <AdBanner placement="footer" />
+      {/* Header Ad - PropellerAds */}
+      <div className="w-full flex justify-center my-6 px-4">
+        <div className="bg-muted/30 border border-border/50 rounded-lg p-3 max-w-xs w-full">
+          <div className="text-xs text-muted-foreground mb-2 text-center">
+            إعلان
+          </div>
+          <div 
+            id="propeller-ad-header"
+            className="w-full h-16 bg-muted/50 rounded flex items-center justify-center"
+          >
+            <span className="text-xs text-muted-foreground">جاري تحميل الإعلان...</span>
+          </div>
+        </div>
+      </div>
+      
+      {/* PropellerAds Script */}
+      <script
+        src="https://fpyf8.com/88/tag.min.js"
+        data-zone="165682"
+        async
+        data-cfasync="false"
+      />
 
       {/* Footer */}
       <footer className="w-full px-4 sm:px-6 py-16 border-t border-border/30 bg-muted/20">
