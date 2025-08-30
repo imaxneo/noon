@@ -171,7 +171,7 @@ class AdAnalyticsManager {
       userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       referrer: typeof document !== 'undefined' ? document.referrer : '',
       viewport: this.getViewportInfo(),
-      location: locationData,
+      location: locationData || undefined,
       device: this.getDeviceInfo()
     }
 
