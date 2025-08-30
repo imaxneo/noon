@@ -125,7 +125,7 @@ class AdAnalyticsManager {
     }
   }
 
-  private async getLocationInfo(): Promise<{ country: string; region: string; city: string } | {}> {
+  private async getLocationInfo(): Promise<{ country: string; region: string; city: string } | Record<string, never>> {
     return new Promise((resolve) => {
       if (typeof window === 'undefined') {
         resolve({});
