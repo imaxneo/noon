@@ -1,5 +1,63 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // إعادة التوجيه الدائمة
+  async redirects() {
+    return [
+      // إعادة توجيه من النطاقات القديمة
+      {
+        source: '/azkar/morning',
+        destination: '/azkar/sabah',
+        permanent: true,
+      },
+      {
+        source: '/azkar/evening',
+        destination: '/azkar/masaa',
+        permanent: true,
+      },
+      {
+        source: '/azkar/night',
+        destination: '/azkar/sleep',
+        permanent: true,
+      },
+      {
+        source: '/azkar/ibrahim',
+        destination: '/azkar/ibrahimiya',
+        permanent: true,
+      },
+      {
+        source: '/azkar/forgiveness',
+        destination: '/azkar/istighfar',
+        permanent: true,
+      },
+      // إعادة توجيه من المسارات القديمة
+      {
+        source: '/morning',
+        destination: '/azkar/sabah',
+        permanent: true,
+      },
+      {
+        source: '/evening',
+        destination: '/azkar/masaa',
+        permanent: true,
+      },
+      {
+        source: '/sleep',
+        destination: '/azkar/sleep',
+        permanent: true,
+      },
+      {
+        source: '/ibrahimiya',
+        destination: '/azkar/ibrahimiya',
+        permanent: true,
+      },
+      {
+        source: '/istighfar',
+        destination: '/azkar/istighfar',
+        permanent: true,
+      },
+    ]
+  },
+  
   // حماية أمنية
   async headers() {
     return [
@@ -42,10 +100,24 @@ const nextConfig = {
   // حماية إضافية
   outputFileTracingRoot: process.cwd(),
   
-  // حماية ضد التلاعب في الصور
+  // تحسين الصور
   images: {
     domains: [],
     unoptimized: false,
+    formats: ['image/webp', 'image/avif'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
+  
+  // تحسين الأداء
+  compress: true,
+  poweredByHeader: false,
+  generateEtags: true,
+  
+  // تحسين البناء
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   
   // حماية ضد التلاعب في الملفات

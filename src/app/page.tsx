@@ -57,7 +57,7 @@ export default function HomePage() {
         type="website"
         title="نور - رفيق يومك للذكر | أذكار الصباح والمساء والنوم"
         description="موقع نور للأذكار اليومية - أذكار الصباح والمساء والنوم، الصلاة الإبراهيمية والاستغفار. صدقة جارية لتسهيل الذكر والدعاء مع حفظ التقدم محلياً."
-        url="https://noor-app.vercel.app"
+        url="https://www.kintego.site"
         keywords={["أذكار", "ذكر", "دعاء", "صباح", "مساء", "نوم", "إسلامي", "قرآن", "حديث", "صدقة جارية", "الصلاة الإبراهيمية", "استغفار", "تسبيح", "تحميد", "أذكار يومية", "حصن المسلم"]}
       />
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">

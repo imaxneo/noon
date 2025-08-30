@@ -50,10 +50,10 @@ export function StructuredData({
       "publisher": {
         "@type": "Organization",
         "name": "نور - رفيق يومك للذكر",
-        "url": "https://noor-app.vercel.app",
+        "url": "https://www.kintego.site",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://noor-app.vercel.app/logo.png",
+          "url": "https://www.kintego.site/logo.png",
           "width": 512,
           "height": 512
         },
@@ -72,31 +72,31 @@ export function StructuredData({
             "@type": "ListItem",
             "position": 1,
             "name": "أذكار الصباح",
-            "url": "https://noor-app.vercel.app/azkar/sabah"
+            "url": "https://www.kintego.site/azkar/sabah"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "أذكار المساء",
-            "url": "https://noor-app.vercel.app/azkar/masaa"
+            "url": "https://www.kintego.site/azkar/masaa"
           },
           {
             "@type": "ListItem",
             "position": 3,
             "name": "أذكار النوم",
-            "url": "https://noor-app.vercel.app/azkar/sleep"
+            "url": "https://www.kintego.site/azkar/sleep"
           },
           {
             "@type": "ListItem",
             "position": 4,
             "name": "الصلاة الإبراهيمية",
-            "url": "https://noor-app.vercel.app/azkar/ibrahimiya"
+            "url": "https://www.kintego.site/azkar/ibrahimiya"
           },
           {
             "@type": "ListItem",
             "position": 5,
             "name": "الاستغفار",
-            "url": "https://noor-app.vercel.app/azkar/istighfar"
+            "url": "https://www.kintego.site/azkar/istighfar"
           }
         ]
       }
@@ -115,7 +115,7 @@ export function StructuredData({
         "name": "نور - رفيق يومك للذكر",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://noor-app.vercel.app/logo.png"
+          "url": "https://www.kintego.site/logo.png"
         }
       },
       "datePublished": publishedTime || new Date().toISOString(),

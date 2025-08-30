@@ -14,7 +14,7 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kintego.site'),
+  metadataBase: new URL('https://www.kintego.site'),
   title: {
     default: "نور - رفيق يومك للذكر | أذكار الصباح والمساء والنوم",
     template: "%s | نور - رفيق يومك للذكر"
@@ -43,16 +43,32 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://kintego.site',
+    canonical: 'https://www.kintego.site',
     languages: {
-      'ar': 'https://kintego.site',
-      'ar-SA': 'https://kintego.site',
+      'ar': 'https://www.kintego.site',
+      'ar-SA': 'https://www.kintego.site',
+      'ar-EG': 'https://www.kintego.site',
+      'ar-AE': 'https://www.kintego.site',
+      'ar-JO': 'https://www.kintego.site',
+      'ar-LB': 'https://www.kintego.site',
+      'ar-SY': 'https://www.kintego.site',
+      'ar-IQ': 'https://www.kintego.site',
+      'ar-KW': 'https://www.kintego.site',
+      'ar-QA': 'https://www.kintego.site',
+      'ar-BH': 'https://www.kintego.site',
+      'ar-OM': 'https://www.kintego.site',
+      'ar-YE': 'https://www.kintego.site',
+      'ar-MA': 'https://www.kintego.site',
+      'ar-TN': 'https://www.kintego.site',
+      'ar-DZ': 'https://www.kintego.site',
+      'ar-LY': 'https://www.kintego.site',
+      'ar-SD': 'https://www.kintego.site',
     },
   },
   openGraph: {
     type: "website",
     locale: "ar_SA",
-    url: "https://kintego.site",
+    url: "https://www.kintego.site",
     title: "نور - رفيق يومك للذكر | أذكار الصباح والمساء والنوم",
     description: "موقع نور للأذكار اليومية - أذكار الصباح والمساء والنوم، الصلاة الإبراهيمية والاستغفار. صدقة جارية لتسهيل الذكر والدعاء.",
     siteName: "نور - رفيق يومك للذكر",
@@ -101,13 +117,17 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <head>
-        {/* Google Fonts - Preconnect */}
+        {/* Google Fonts - Optimized Loading */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" as="style" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" />
+        
+        {/* Performance Hints */}
+        <link rel="preload" href="/og-image.png" as="image" type="image/png" />
+        <link rel="preload" href="/favicon-32x32.svg" as="image" type="image/svg+xml" />
         
         {/* Favicons and Icons */}
         <link rel="icon" type="image/svg+xml" href="/favicon-16x16.svg" />
@@ -127,7 +147,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         
 
-        <link rel="canonical" href="https://kintego.site" />
+        <link rel="canonical" href="https://www.kintego.site" />
       </head>
       <body className={`${cairo.variable} font-sans antialiased`}>
         <Script
@@ -137,6 +157,22 @@ export default function RootLayout({
           data-cfasync="false"
           async
         />
+        
+        {/* Google Analytics 4 */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID || 'G-XXXXXXXXXX'}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID || 'G-XXXXXXXXXX'}', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
         {/* Skip to main content for screen readers */}
         <a 
           href="#main-content" 

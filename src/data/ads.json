@@ -1,0 +1,54 @@
+{
+  "banners": [
+    {
+      "id": "propeller-header-1",
+      "type": "propeller",
+      "placement": "header",
+      "zone": "123456"
+    },
+    {
+      "id": "propeller-inline-1",
+      "type": "propeller",
+      "placement": "inline",
+      "zone": "123457"
+    },
+    {
+      "id": "propeller-footer-1",
+      "type": "propeller",
+      "placement": "footer",
+      "zone": "123458"
+    },
+    {
+      "id": "fpyf8-header-1",
+      "type": "fpyf8",
+      "placement": "header",
+      "zone": "165682"
+    },
+    {
+      "id": "fpyf8-inline-1",
+      "type": "fpyf8",
+      "placement": "inline",
+      "zone": "165682"
+    },
+    {
+      "id": "fpyf8-footer-1",
+      "type": "fpyf8",
+      "placement": "footer",
+      "zone": "165682"
+    },
+    {
+      "id": "image-banner-1",
+      "type": "image",
+      "placement": "inline",
+      "src": "/images/ads/sample-728x90.jpg",
+      "href": "https://example.com",
+      "alt": "إعلان تجريبي",
+      "width": 728,
+      "height": 90
+    }
+  ],
+  "settings": {
+    "enabled": true,
+    "refreshInterval": 30000
+  }
+}

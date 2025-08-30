@@ -1,5 +1,5 @@
 # robots.txt for نور - رفيق يومك للذكر
-# https://noor-app.vercel.app
+# https://www.kintego.site
 
 # Allow all crawlers
 User-agent: *
@@ -10,20 +10,23 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
 Disallow: /private/
+Disallow: /_vercel/
 
 # السماح لمحركات البحث
 User-agent: Googlebot
 Allow: /
 Disallow: /api/
 Disallow: /_next/
+Disallow: /_vercel/
 
 User-agent: Bingbot
 Allow: /
 Disallow: /api/
 Disallow: /_next/
+Disallow: /_vercel/
 
 # خريطة الموقع
-Sitemap: https://noor-app.vercel.app/sitemap.xml
+Sitemap: https://www.kintego.site/sitemap.xml
 
 # معلومات إضافية
 Crawl-delay: 1
