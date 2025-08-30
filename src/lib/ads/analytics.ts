@@ -50,6 +50,12 @@ declare global {
   }
 }
 
+type LocationData = {
+  country: string
+  region: string
+  city: string
+} | null
+
 class AdAnalyticsManager {
   private events: AdEvent[] = []
   private performance: Map<string, AdPerformance> = new Map()
@@ -125,11 +131,11 @@ class AdAnalyticsManager {
     }
   }
 
-  private async getLocationInfo(): Promise<{ country: string; region: string; city: string } | Record<string, never>> {
+  private async getLocationInfo(): Promise<LocationData> {
     return new Promise((resolve) => {
       if (typeof window === 'undefined') {
-        resolve({});
-        return;
+        resolve(null)
+        return
       }
 
       // Try to get location from browser
@@ -141,14 +147,14 @@ class AdAnalyticsManager {
               country: 'SA', // Default to Saudi Arabia
               region: 'Riyadh',
               city: 'Riyadh'
-            });
+            })
           },
-          () => resolve({})
-        );
+          () => resolve(null)
+        )
       } else {
-        resolve({});
+        resolve(null)
       }
-    });
+    })
   }
 
   async trackAdImpression(adId: string, placement: string, type: string) {
@@ -165,7 +171,7 @@ class AdAnalyticsManager {
       userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       referrer: typeof document !== 'undefined' ? document.referrer : '',
       viewport: this.getViewportInfo(),
-      location: 'country' in locationData ? locationData : undefined,
+      location: locationData,
       device: this.getDeviceInfo()
     }
 
