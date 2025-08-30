@@ -49,7 +49,7 @@ export function AdBanner({ placement, index = 0, className = "" }: AdBannerProps
       return (
         <div className={`w-full ${className}`}>
           <a
-            href={ad.url}
+            href={ad.href}
             target="_blank"
             rel="noopener noreferrer"
             className="block"
