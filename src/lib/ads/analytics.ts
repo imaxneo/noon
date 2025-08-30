@@ -40,7 +40,14 @@ interface AdEvent {
   adId: string
   placement: string
   timestamp: number
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
+}
+
+// Extend Window interface for gtag
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void
+  }
 }
 
 class AdAnalyticsManager {
@@ -118,7 +125,7 @@ class AdAnalyticsManager {
     }
   }
 
-  private async getLocationInfo() {
+  private async getLocationInfo(): Promise<{ country: string; region: string; city: string } | {}> {
     return new Promise((resolve) => {
       if (typeof window === 'undefined') {
         resolve({});
@@ -145,6 +152,8 @@ class AdAnalyticsManager {
   }
 
   async trackAdImpression(adId: string, placement: string, type: string) {
+    const locationData = await this.getLocationInfo()
+    
     const analytics: AdAnalytics = {
       adId,
       placement,
@@ -156,7 +165,7 @@ class AdAnalyticsManager {
       userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
       referrer: typeof document !== 'undefined' ? document.referrer : '',
       viewport: this.getViewportInfo(),
-      location: await this.getLocationInfo() as any,
+      location: 'country' in locationData ? locationData : undefined,
       device: this.getDeviceInfo()
     }
 
@@ -232,8 +241,8 @@ class AdAnalyticsManager {
     console.log('Ad Analytics:', data)
     
     // Example: Send to Google Analytics
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'ad_impression', {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'ad_impression', {
         ad_id: data.adId,
         placement: data.placement,
         ad_type: data.type,

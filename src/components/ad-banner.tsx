@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { AdData, AdBanner as AdBannerType } from "@/lib/ads/types"
+import { AdData } from "@/lib/ads/types"
 import { PropellerAds } from "./propeller-ads"
 
 interface AdBannerProps {
