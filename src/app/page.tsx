@@ -20,7 +20,6 @@ const HeroButton = dynamic(() => import("@/components/hero-button").then(mod => 
 import { SectionHeader } from "@/components/section-header"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { AdBanner } from "@/components/ad-banner"
 const CurrentUsersBadge = dynamic(() => import("@/components/current-users-badge").then(mod => ({ default: mod.CurrentUsersBadge })), {
   ssr: false,
   loading: () => (

@@ -1,122 +1,124 @@
-/**
- * Advanced analytics and tracking system for Propeller Ads
- */
+"use client"
 
-export interface AdEvent {
-  id: string;
-  type: 'impression' | 'click' | 'conversion' | 'viewability';
-  adId: string;
-  zoneId?: string;
-  timestamp: number;
-  userId?: string;
-  sessionId: string;
-  metadata: {
-    url: string;
-    referrer?: string;
-    userAgent: string;
-    viewport: {
-      width: number;
-      height: number;
-    };
-    geo?: {
-      country?: string;
-      region?: string;
-      city?: string;
-    };
-    device?: {
-      type: 'desktop' | 'mobile' | 'tablet';
-      os?: string;
-      browser?: string;
-    };
-    adPosition?: {
-      top: number;
-      left: number;
-      width: number;
-      height: number;
-    };
-    viewability?: {
-      visible: boolean;
-      visibleTime: number;
-      percentVisible: number;
-    };
-    conversionValue?: number;
-  };
-}
-
-export interface AdMetrics {
-  impressions: number;
-  clicks: number;
-  conversions: number;
-  ctr: number;
-  viewability: number;
-  revenue: number;
-  ecpm: number;
-}
-
-export interface AnalyticsConfig {
-  enableTracking: boolean;
-  enableViewability: boolean;
-  enableHeatmap: boolean;
-  samplingRate: number;
-  batchSize: number;
-  flushInterval: number;
-}
-
-class AdAnalytics {
-  private events: AdEvent[] = [];
-  private config: AnalyticsConfig;
-  private sessionId: string;
-  private userId?: string;
-
-  constructor(config: AnalyticsConfig = {
-    enableTracking: true,
-    enableViewability: true,
-    enableHeatmap: false,
-    samplingRate: 1.0,
-    batchSize: 50,
-    flushInterval: 5000
-  }) {
-    this.config = config;
-    this.sessionId = this.generateSessionId();
-    this.userId = this.getUserId();
-    this.init();
+interface AdAnalytics {
+  adId: string
+  placement: string
+  type: string
+  timestamp: number
+  userId?: string
+  sessionId?: string
+  pageUrl: string
+  userAgent: string
+  referrer: string
+  viewport: {
+    width: number
+    height: number
   }
+  location?: {
+    country: string
+    region: string
+    city: string
+  }
+  device: {
+    type: 'mobile' | 'tablet' | 'desktop'
+    os: string
+    browser: string
+  }
+}
 
-  private init(): void {
-    if (typeof window === 'undefined') return;
+interface AdPerformance {
+  adId: string
+  impressions: number
+  clicks: number
+  ctr: number
+  revenue: number
+  timestamp: number
+}
 
-    // Set up periodic flush
-    setInterval(() => this.flush(), this.config.flushInterval);
+interface AdEvent {
+  type: 'impression' | 'click' | 'view' | 'close'
+  adId: string
+  placement: string
+  timestamp: number
+  metadata?: Record<string, any>
+}
 
-    // Track page visibility
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') {
-        this.flush();
-      }
-    });
+class AdAnalyticsManager {
+  private events: AdEvent[] = []
+  private performance: Map<string, AdPerformance> = new Map()
+  private sessionId: string
+  private userId: string
 
-    // Track before unload
-    window.addEventListener('beforeunload', () => {
-      this.flush();
-    });
+  constructor() {
+    this.sessionId = this.generateSessionId()
+    this.userId = this.getOrCreateUserId()
   }
 
   private generateSessionId(): string {
-    return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
   }
 
-  private getUserId(): string | undefined {
-    if (typeof window === 'undefined') return undefined;
+  private getOrCreateUserId(): string {
+    if (typeof window === 'undefined') return 'anonymous'
     
-    let userId = localStorage.getItem('ad_user_id');
+    let userId = localStorage.getItem('ad_user_id')
     if (!userId) {
-      userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      localStorage.setItem('ad_user_id', userId);
+      userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      localStorage.setItem('ad_user_id', userId)
     }
-    return userId;
+    return userId
   }
 
-  private getGeoLocation(): Promise<Partial<AdEvent['metadata']['geo']>> {
+  private getDeviceInfo() {
+    if (typeof window === 'undefined') {
+      return {
+        type: 'desktop' as const,
+        os: 'unknown',
+        browser: 'unknown'
+      }
+    }
+
+    const userAgent = navigator.userAgent
+    let deviceType: 'mobile' | 'tablet' | 'desktop' = 'desktop'
+    let os = 'unknown'
+    let browser = 'unknown'
+
+    // Detect device type
+    if (/Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)) {
+      deviceType = 'mobile'
+    } else if (/iPad|Android(?=.*Tablet)|Tablet/i.test(userAgent)) {
+      deviceType = 'tablet'
+    }
+
+    // Detect OS
+    if (/Windows/i.test(userAgent)) os = 'Windows'
+    else if (/Mac/i.test(userAgent)) os = 'macOS'
+    else if (/Linux/i.test(userAgent)) os = 'Linux'
+    else if (/Android/i.test(userAgent)) os = 'Android'
+    else if (/iOS|iPhone|iPad|iPod/i.test(userAgent)) os = 'iOS'
+
+    // Detect browser
+    if (/Chrome/i.test(userAgent) && !/Edge/i.test(userAgent)) browser = 'Chrome'
+    else if (/Firefox/i.test(userAgent)) browser = 'Firefox'
+    else if (/Safari/i.test(userAgent) && !/Chrome/i.test(userAgent)) browser = 'Safari'
+    else if (/Edge/i.test(userAgent)) browser = 'Edge'
+    else if (/Opera/i.test(userAgent)) browser = 'Opera'
+
+    return { type: deviceType, os, browser }
+  }
+
+  private getViewportInfo() {
+    if (typeof window === 'undefined') {
+      return { width: 0, height: 0 }
+    }
+
+    return {
+      width: window.innerWidth,
+      height: window.innerHeight
+    }
+  }
+
+  private async getLocationInfo() {
     return new Promise((resolve) => {
       if (typeof window === 'undefined') {
         resolve({});
@@ -126,7 +128,7 @@ class AdAnalytics {
       // Try to get location from browser
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-          (position) => {
+          () => {
             // In real implementation, use reverse geocoding
             resolve({
               country: 'SA', // Default to Saudi Arabia
@@ -142,216 +144,127 @@ class AdAnalytics {
     });
   }
 
-  private getDeviceInfo(): AdEvent['metadata']['device'] {
-    if (typeof window === 'undefined') return undefined;
-
-    const userAgent = navigator.userAgent;
-    const isMobile = /Mobile|Android|iPhone|iPad/.test(userAgent);
-    const isTablet = /Tablet|iPad/.test(userAgent);
-    
-    let os = 'unknown';
-    if (/Windows/.test(userAgent)) os = 'windows';
-    else if (/Mac/.test(userAgent)) os = 'macos';
-    else if (/Linux/.test(userAgent)) os = 'linux';
-    else if (/Android/.test(userAgent)) os = 'android';
-    else if (/iPhone|iPad/.test(userAgent)) os = 'ios';
-
-    let browser = 'unknown';
-    if (/Chrome/.test(userAgent)) browser = 'chrome';
-    else if (/Firefox/.test(userAgent)) browser = 'firefox';
-    else if (/Safari/.test(userAgent)) browser = 'safari';
-    else if (/Edge/.test(userAgent)) browser = 'edge';
-
-    return {
-      type: isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop',
-      os,
-      browser
-    };
-  }
-
-  private isSampled(): boolean {
-    return Math.random() < this.config.samplingRate;
-  }
-
-  async trackEvent(
-    type: AdEvent['type'],
-    adId: string,
-    zoneId?: string,
-    additionalMetadata: Partial<AdEvent['metadata']> = {}
-  ): Promise<void> {
-    if (!this.config.enableTracking || !this.isSampled()) return;
-
-    const geo = await this.getGeoLocation();
-    
-    const event: AdEvent = {
-      id: `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      type,
+  async trackAdImpression(adId: string, placement: string, type: string) {
+    const analytics: AdAnalytics = {
       adId,
-      zoneId,
+      placement,
+      type,
       timestamp: Date.now(),
       userId: this.userId,
       sessionId: this.sessionId,
-      metadata: {
-        url: window.location.href,
-        referrer: document.referrer,
-        userAgent: navigator.userAgent,
-        viewport: {
-          width: window.innerWidth,
-          height: window.innerHeight
-        },
-        geo,
-        device: this.getDeviceInfo(),
-        ...additionalMetadata
-      }
-    };
-
-    this.events.push(event);
-
-    if (this.events.length >= this.config.batchSize) {
-      this.flush();
+      pageUrl: typeof window !== 'undefined' ? window.location.href : '',
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+      referrer: typeof document !== 'undefined' ? document.referrer : '',
+      viewport: this.getViewportInfo(),
+      location: await this.getLocationInfo() as any,
+      device: this.getDeviceInfo()
     }
+
+    // Store event
+    this.events.push({
+      type: 'impression',
+      adId,
+      placement,
+      timestamp: Date.now()
+    })
+
+    // Update performance metrics
+    this.updatePerformanceMetrics(adId, 'impression')
+
+    // Send to analytics service (in real implementation)
+    this.sendToAnalytics(analytics)
   }
 
-  trackImpression(adId: string, zoneId?: string, position?: AdEvent['metadata']['adPosition']): void {
-    this.trackEvent('impression', adId, zoneId, { adPosition: position });
+  trackAdClick(adId: string, placement: string) {
+    this.events.push({
+      type: 'click',
+      adId,
+      placement,
+      timestamp: Date.now()
+    })
+
+    this.updatePerformanceMetrics(adId, 'click')
   }
 
-  trackClick(adId: string, zoneId?: string, position?: AdEvent['metadata']['adPosition']): void {
-    this.trackEvent('click', adId, zoneId, { adPosition: position });
+  trackAdView(adId: string, placement: string, viewTime: number) {
+    this.events.push({
+      type: 'view',
+      adId,
+      placement,
+      timestamp: Date.now(),
+      metadata: { viewTime }
+    })
   }
 
-  trackConversion(adId: string, zoneId?: string, value?: number): void {
-    this.trackEvent('conversion', adId, zoneId, { conversionValue: value });
+  trackAdClose(adId: string, placement: string) {
+    this.events.push({
+      type: 'close',
+      adId,
+      placement,
+      timestamp: Date.now()
+    })
   }
 
-  trackViewability(
-    adId: string,
-    zoneId?: string,
-    visible: boolean = false,
-    visibleTime: number = 0,
-    percentVisible: number = 0
-  ): void {
-    if (!this.config.enableViewability) return;
-
-    this.trackEvent('viewability', adId, zoneId, {
-      viewability: {
-        visible,
-        visibleTime,
-        percentVisible
-      }
-    });
-  }
-
-  private async flush(): Promise<void> {
-    if (this.events.length === 0) return;
-
-    const eventsToSend = [...this.events];
-    this.events = [];
-
-    try {
-      // Send to analytics endpoint
-      await this.sendToAnalytics(eventsToSend);
-      
-      // Also store locally for immediate access
-      this.storeLocally(eventsToSend);
-    } catch (error) {
-      console.error('Failed to send analytics:', error);
-      // Re-add events to queue
-      this.events.unshift(...eventsToSend);
+  private updatePerformanceMetrics(adId: string, eventType: 'impression' | 'click') {
+    const current = this.performance.get(adId) || {
+      adId,
+      impressions: 0,
+      clicks: 0,
+      ctr: 0,
+      revenue: 0,
+      timestamp: Date.now()
     }
-  }
 
-  private async sendToAnalytics(events: AdEvent[]): Promise<void> {
-    // In production, send to your analytics endpoint
-    // For now, we'll use a mock endpoint
-    if (typeof window !== 'undefined') {
-      // Mock analytics endpoint
-      console.log('Sending analytics events:', events);
-      
-      // Define the gtag function type
-      interface GtagFunction {
-        (command: string, eventName: string, params?: Record<string, unknown>): void;
-      }
-      
-      // Extend the Window interface
-      interface WindowWithGtag extends Window {
-        gtag?: GtagFunction;
-      }
-      
-      const windowWithGtag = window as WindowWithGtag;
-      
-      // Example: Send to Google Analytics 4
-      if (windowWithGtag.gtag) {
-        events.forEach(event => {
-          windowWithGtag.gtag!('event', event.type, {
-            ad_id: event.adId,
-            zone_id: event.zoneId,
-            custom_parameter_1: event.metadata.url,
-            custom_parameter_2: event.metadata.device?.type
-          });
-        });
-      }
+    if (eventType === 'impression') {
+      current.impressions++
+    } else if (eventType === 'click') {
+      current.clicks++
     }
+
+    current.ctr = current.impressions > 0 ? (current.clicks / current.impressions) * 100 : 0
+    current.timestamp = Date.now()
+
+    this.performance.set(adId, current)
   }
 
-  private storeLocally(events: AdEvent[]): void {
-    if (typeof window === 'undefined') return;
-
-    const key = `ad_analytics_${this.sessionId}`;
-    const existing = JSON.parse(localStorage.getItem(key) || '[]');
-    const updated = [...existing, ...events];
+  private sendToAnalytics(data: AdAnalytics) {
+    // In a real implementation, send to your analytics service
+    console.log('Ad Analytics:', data)
     
-    // Keep only last 1000 events
-    const trimmed = updated.slice(-1000);
-    localStorage.setItem(key, JSON.stringify(trimmed));
-  }
-
-  getMetrics(adId?: string): AdMetrics {
-    const events = this.getStoredEvents();
-    const filtered = adId ? events.filter(e => e.adId === adId) : events;
-
-    const impressions = filtered.filter(e => e.type === 'impression').length;
-    const clicks = filtered.filter(e => e.type === 'click').length;
-    const conversions = filtered.filter(e => e.type === 'conversion').length;
-    const viewabilityEvents = filtered.filter(e => e.type === 'viewability');
-
-    const totalViewability = viewabilityEvents.reduce((sum, e) => {
-      return sum + (e.metadata.viewability?.percentVisible || 0);
-    }, 0);
-
-    const avgViewability = viewabilityEvents.length > 0 
-      ? totalViewability / viewabilityEvents.length 
-      : 0;
-
-    return {
-      impressions,
-      clicks,
-      conversions,
-      ctr: impressions > 0 ? clicks / impressions : 0,
-      viewability: avgViewability,
-      revenue: 0, // Would be calculated from conversion values
-      ecpm: impressions > 0 ? (0 / impressions) * 1000 : 0
-    };
-  }
-
-  private getStoredEvents(): AdEvent[] {
-    if (typeof window === 'undefined') return [];
-    
-    const key = `ad_analytics_${this.sessionId}`;
-    return JSON.parse(localStorage.getItem(key) || '[]');
-  }
-
-  clear(): void {
-    this.events = [];
-    if (typeof window !== 'undefined') {
-      const key = `ad_analytics_${this.sessionId}`;
-      localStorage.removeItem(key);
+    // Example: Send to Google Analytics
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'ad_impression', {
+        ad_id: data.adId,
+        placement: data.placement,
+        ad_type: data.type,
+        device_type: data.device.type,
+        country: data.location?.country || 'unknown'
+      })
     }
+  }
+
+  getPerformanceMetrics(adId?: string) {
+    if (adId) {
+      return this.performance.get(adId)
+    }
+    return Array.from(this.performance.values())
+  }
+
+  getEvents(adId?: string) {
+    if (adId) {
+      return this.events.filter(event => event.adId === adId)
+    }
+    return this.events
+  }
+
+  clearData() {
+    this.events = []
+    this.performance.clear()
   }
 }
 
 // Export singleton instance
-export const adAnalytics = new AdAnalytics();
+export const adAnalytics = new AdAnalyticsManager()
 
-// Export for manual configuration
-export const createAnalytics = (config: AnalyticsConfig) => new AdAnalytics(config);
+// Export types
+export type { AdAnalytics, AdPerformance, AdEvent }

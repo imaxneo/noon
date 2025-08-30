@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { AdBanner } from "@/lib/ads/types"
 import { PropellerAds } from "./propeller-ads"
 import { Fpyf8Ads } from "./fpyf8-ads"
-import { AdBanner as ImageAdBanner } from "./ad-banner"
+import { AdBanner as AdBannerComponent } from "./ad-banner"
 
 interface AdManagerProps {
   placement: "header" | "inline" | "footer"
@@ -51,7 +51,7 @@ export function AdManager({ placement, index = 0 }: AdManagerProps) {
     case "fpyf8":
       return <Fpyf8Ads zoneId={ad.zone || ""} placement={placement} index={index} />
     case "image":
-      return <ImageAdBanner banner={ad} />
+      return <AdBannerComponent placement={placement} index={index} />
     case "html":
       return (
         <div 

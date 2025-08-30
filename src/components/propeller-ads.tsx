@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect } from "react"
-import { AdBanner } from "@/lib/ads/types"
 
 interface PropellerAdsProps {
   zoneId: string
@@ -12,26 +11,26 @@ interface PropellerAdsProps {
 export function PropellerAds({ zoneId, placement, index = 0 }: PropellerAdsProps) {
   useEffect(() => {
     // Load PropellerAds script
-    const script = document.createElement("script")
+    const script = document.createElement('script')
+    script.src = 'https://fpyf8.com/88/tag.min.js'
+    script.setAttribute('data-zone', zoneId)
+    script.setAttribute('data-cfasync', 'false')
     script.async = true
-    script.src = "//propeller-tracking.com/scripts/propeller.js"
-    script.setAttribute("data-zone", zoneId)
     
-    const container = document.getElementById(`propeller-${zoneId}-${placement}-${index}`)
-    if (container) {
-      container.appendChild(script)
-    }
-
+    // Add script to head
+    document.head.appendChild(script)
+    
+    // Cleanup
     return () => {
-      if (container && script.parentNode) {
-        script.parentNode.removeChild(script)
+      if (document.head.contains(script)) {
+        document.head.removeChild(script)
       }
     }
-  }, [zoneId, placement, index])
+  }, [zoneId])
 
   return (
     <div 
-      id={`propeller-${zoneId}-${placement}-${index}`}
+      id={`propeller-ad-${placement}-${index}`}
       className="w-full h-16 bg-muted/50 rounded flex items-center justify-center"
     >
       <span className="text-xs text-muted-foreground">جاري تحميل الإعلان...</span>

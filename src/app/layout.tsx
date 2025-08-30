@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   description: "موقع نور للأذكار اليومية - أذكار الصباح والمساء والنوم، الصلاة الإبراهيمية والاستغفار. صدقة جارية لتسهيل الذكر والدعاء مع حفظ التقدم محلياً. موقع بسيط وسريع بدون تتبع للخصوصية.",
   keywords: ["أذكار", "ذكر", "دعاء", "صباح", "مساء", "نوم", "إسلامي", "قرآن", "حديث", "صدقة جارية", "الصلاة الإبراهيمية", "استغفار", "تسبيح", "تحميد", "أذكار يومية", "حصن المسلم"],
-  authors: [{ name: "فريق نور", url: "https://kintego.site" }],
+  authors: [{ name: "فريق نور", url: "https://www.kintego.site" }],
   creator: "فريق نور",
   publisher: "نور - رفيق يومك للذكر",
   formatDetection: {
@@ -117,13 +117,11 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <head>
-        {/* Google Fonts - Optimized Loading */}
+        {/* Google Fonts - Preconnect */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" as="style" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap" />
         
         {/* Performance Hints */}
         <link rel="preload" href="/og-image.png" as="image" type="image/png" />
