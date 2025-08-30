@@ -46,10 +46,15 @@ export function AdBanner({ placement, index = 0, className = "" }: AdBannerProps
     case "propeller":
       return <PropellerAds zoneId={ad.zone || ""} placement={placement} index={index} />
     case "image":
+      // Check if all required properties exist
+      if (!ad.src || !ad.alt || !ad.width || !ad.height) {
+        return null
+      }
+      
       return (
         <div className={`w-full ${className}`}>
           <a
-            href={ad.href}
+            href={ad.href || "#"}
             target="_blank"
             rel="noopener noreferrer"
             className="block"
