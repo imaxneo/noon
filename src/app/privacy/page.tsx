@@ -50,7 +50,7 @@ export default function PrivacyPage() {
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <section className="prose prose-neutral max-w-none mb-6 text-muted-foreground site-text">
           <p>
-            نحرص في "نور" على حماية خصوصيتك. نجمع أقل قدر من البيانات اللازمة لتحسين الأداء
+            نحرص في &quot;نور&quot; على حماية خصوصيتك. نجمع أقل قدر من البيانات اللازمة لتحسين الأداء
             وتجربة الاستخدام، دون جمع بيانات تعريفية شخصية.
           </p>
           <h3>ما الذي نجمعه؟</h3>

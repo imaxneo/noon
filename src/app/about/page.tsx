@@ -57,7 +57,7 @@ export default function AboutPage() {
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         <section className="prose prose-neutral max-w-none mb-6 text-muted-foreground site-text">
           <p>
-            "نور" مبادرة تهدف لتسهيل الذكر اليومي باللغة العربية عبر تجربة سريعة وبسيطة على الجوال
+            &quot;نور&quot; مبادرة تهدف لتسهيل الذكر اليومي باللغة العربية عبر تجربة سريعة وبسيطة على الجوال
             والحاسوب، دون إعلانات مزعجة أو تتبع للخصوصية. نعتمد صيغ الأذكار المأثورة من القرآن والسنة
             ونحرص على الدقة اللغوية وعرض الفوائد بإيجاز.
           </p>
