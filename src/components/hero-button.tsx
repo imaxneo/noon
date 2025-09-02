@@ -45,13 +45,16 @@ export function HeroButton() {
       <Button 
         asChild 
         size="lg" 
-        className="text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-7 rounded-2xl relative overflow-hidden group transition-all duration-500 shadow-lg hover:shadow-xl hover:shadow-primary/20 bg-gradient-to-r from-primary via-primary to-primary/90 hover:from-primary/90 hover:via-primary hover:to-primary hero-glow w-full max-w-md"
+        className="text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-7 rounded-2xl relative overflow-hidden group transition-all duration-500 shadow-lg hover:shadow-xl hover:shadow-primary/20 bg-gradient-to-r from-primary via-primary to-primary/90 hover:from-primary/90 hover:via-primary hover:to-primary hero-glow w-full max-w-md motion-reduce:transition-none motion-reduce:transform-none"
       >
         <Link href={timeContent.route}>
           <span className="relative z-10 font-bold site-text">
             {timeContent.title}
           </span>
           
+          {/* Subtle idle pulse (very low opacity) */}
+          <div className="absolute inset-0 bg-primary/10 opacity-5 animate-pulse motion-reduce:animate-none"></div>
+
           {/* Subtle background effects - original comfortable speed */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/15 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100"></div>
@@ -59,11 +62,15 @@ export function HeroButton() {
           {/* Shine effect */}
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 hero-shine"></div>
           
-          {/* Gentle pulse effect */}
-          <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-all duration-1000 animate-pulse"></div>
+          {/* Gentle pulse on hover */}
+          <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-all duration-1000 animate-pulse motion-reduce:animate-none"></div>
         </Link>
       </Button>
-      
+      <style jsx>{`
+        .group:hover { transform: translateY(-1px) scale(1.005); }
+        @media (prefers-reduced-motion: reduce) { .group:hover { transform: none; } }
+      `}</style>
+
       <p className="text-base sm:text-lg text-muted-foreground animate-fade-in text-center max-w-md mx-auto px-4 site-text">
         {timeContent.description}
       </p>
