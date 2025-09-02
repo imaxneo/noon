@@ -1,3 +1,4 @@
+import { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { Brand } from "@/components/brand"
@@ -5,6 +6,23 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SectionHeader } from "@/components/section-header"
+
+export const metadata: Metadata = {
+  title: "سياسة الخصوصية | نور",
+  description: "سياسة الخصوصية لموقع نور: ما نجمعه، وكيف نستخدمه، وأدوات الطرف الثالث، وكيف نحافظ على خصوصيتك.",
+  keywords: ["سياسة الخصوصية", "الخصوصية", "Cookies", "تحليلات"],
+  alternates: {
+    canonical: "https://www.kintego.site/privacy",
+  },
+  openGraph: {
+    title: "سياسة الخصوصية | نور",
+    description: "اطّلع على سياسة الخصوصية وكيف نحمي بياناتك.",
+    url: "https://www.kintego.site/privacy",
+    type: "article",
+    locale: "ar_SA",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "سياسة الخصوصية" }],
+  },
+}
 
 export default function PrivacyPage() {
   return (
@@ -30,6 +48,27 @@ export default function PrivacyPage() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-4xl">
+        <section className="prose prose-neutral max-w-none mb-6 text-muted-foreground site-text">
+          <p>
+            نحرص في "نور" على حماية خصوصيتك. نجمع أقل قدر من البيانات اللازمة لتحسين الأداء
+            وتجربة الاستخدام، دون جمع بيانات تعريفية شخصية.
+          </p>
+          <h3>ما الذي نجمعه؟</h3>
+          <ul>
+            <li>بيانات استخدام عامة (الصفحات، الوقت، نوع الجهاز) بشكل مجمل.</li>
+            <li>ملفات ضرورية لعمل الموقع (مثل تفضيلات الواجهة).</li>
+          </ul>
+          <h3>كيف نستخدم البيانات؟</h3>
+          <ul>
+            <li>تحسين الأداء وتجربة المستخدم.</li>
+            <li>تحليلات مجمّعة لفهم التفاعل مع المحتوى.</li>
+          </ul>
+          <h3>التواصل</h3>
+          <p>
+            للاستفسارات، تواصل عبر صفحة
+            <Link href="/about" className="ml-1 text-primary hover:underline">عن الموقع</Link>.
+          </p>
+        </section>
         <SectionHeader
           title="سياسة الخصوصية"
           description="نلتزم بحماية خصوصيتك وعدم جمع أي بيانات شخصية"

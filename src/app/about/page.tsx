@@ -1,3 +1,4 @@
+import { Metadata } from "next"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { Brand } from "@/components/brand"
@@ -5,6 +6,30 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SectionHeader } from "@/components/section-header"
+
+export const metadata: Metadata = {
+  title: "عن موقع نور | أذكار الصباح والمساء والنوم",
+  description: "تعرف على موقع نور: رسالتنا في تسهيل ذكر الله اليومي مع أذكار الصباح والمساء والنوم، الصلاة الإبراهيمية والاستغفار، دون تتبع وبواجهة سريعة بالعربية.",
+  keywords: ["عن موقع نور", "من نحن", "أذكار", "أذكار الصباح", "أذكار المساء", "أذكار النوم", "الصلاة الإبراهيمية", "الاستغفار"],
+  alternates: {
+    canonical: "https://www.kintego.site/about",
+  },
+  openGraph: {
+    title: "عن موقع نور | أذكار الصباح والمساء والنوم",
+    description: "تعرف على موقع نور ورسالتنا ومصادر المحتوى وكيف نحافظ على الخصوصية.",
+    url: "https://www.kintego.site/about",
+    type: "article",
+    locale: "ar_SA",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "عن موقع نور",
+      },
+    ],
+  },
+}
 
 export default function AboutPage() {
   return (
@@ -30,6 +55,25 @@ export default function AboutPage() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8 max-w-4xl">
+        <section className="prose prose-neutral max-w-none mb-6 text-muted-foreground site-text">
+          <p>
+            "نور" مبادرة تهدف لتسهيل الذكر اليومي باللغة العربية عبر تجربة سريعة وبسيطة على الجوال
+            والحاسوب، دون إعلانات مزعجة أو تتبع للخصوصية. نعتمد صيغ الأذكار المأثورة من القرآن والسنة
+            ونحرص على الدقة اللغوية وعرض الفوائد بإيجاز.
+          </p>
+          <p>
+            جرّب صفحات الأذكار مباشرة:
+            <Link href="/azkar/sabah" className="ml-2 text-primary hover:underline">أذكار الصباح</Link>
+            <span className="mx-1">|</span>
+            <Link href="/azkar/masaa" className="text-primary hover:underline">أذكار المساء</Link>
+            <span className="mx-1">|</span>
+            <Link href="/azkar/sleep" className="text-primary hover:underline">أذكار النوم</Link>
+            <span className="mx-1">|</span>
+            <Link href="/azkar/ibrahimiya" className="text-primary hover:underline">الصلاة الإبراهيمية</Link>
+            <span className="mx-1">|</span>
+            <Link href="/azkar/istighfar" className="text-primary hover:underline">الاستغفار</Link>
+          </p>
+        </section>
         <SectionHeader
           title="عن موقع نور"
           description="رفيق يومك للذكر - صدقة جارية نسأل الله أن ينفع بها"
