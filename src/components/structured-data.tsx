@@ -133,10 +133,10 @@ export function StructuredData({
       "name": "نور - رفيق يومك للذكر",
       "alternateName": "Noor App",
       "description": "موقع نور للأذكار اليومية - أذكار الصباح والمساء والنوم، الصلاة الإبراهيمية والاستغفار",
-      "url": "https://noor-app.vercel.app",
+      "url": "https://www.kintego.site",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://noor-app.vercel.app/logo.png",
+        "url": "https://www.kintego.site/logo.png",
         "width": 512,
         "height": 512
       },

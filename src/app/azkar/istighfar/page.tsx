@@ -9,6 +9,7 @@ import { DhikrCard, Dhikr } from "@/components/dhikr-card";
 import { AdBanner } from "@/components/ad-banner";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { StructuredData } from "@/components/structured-data";
+import { FAQStructuredData } from "@/components/faq-structured-data";
 import istighfarData from "../../../../data/azkar/istighfar.json";
 
 export const metadata: Metadata = {
@@ -79,6 +80,13 @@ export default function IstighfarPage() {
               description="أدعية الاستغفار المأثورة - استغفر الله وتب إليه"
               emoji="🙏"
             />
+            <section className="prose prose-neutral max-w-none mb-6 text-muted-foreground site-text">
+              <p>
+                الاستغفار من أجلِّ العبادات التي يمحو الله بها الذنوب ويرفع بها الدرجات.
+                خصّص وقتاً يومياً لقول صيغ الاستغفار المأثورة بتدبر وخشوع، وداوم عليها بعد
+                الصلوات وفي ساعات الليل والنهار.
+              </p>
+            </section>
             
             {/* Dhikr Cards */}
             <section className="grid grid-cols-1 gap-6 w-full" aria-labelledby="dhikr-list">
@@ -126,6 +134,25 @@ export default function IstighfarPage() {
             </div>
           </div>
         </main>
+        <FAQStructuredData
+          title="الاستغفار - أسئلة شائعة"
+          description="إجابات عن الأسئلة الشائعة حول صيغ الاستغفار الصحيحة ووقتها وفضلها"
+          url="https://www.kintego.site/azkar/istighfar"
+          faqs={[
+            {
+              question: "ما هي أفضل صيغة للاستغفار؟",
+              answer: "سيد الاستغفار: اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك..."
+            },
+            {
+              question: "كم مرة يُستحب قول الاستغفار؟",
+              answer: "ورد عن النبي ﷺ الاستغفار أكثر من سبعين مرة في اليوم، فالإكثار مستحب."
+            },
+            {
+              question: "هل هناك أوقات مفضلة للاستغفار؟",
+              answer: "أفضل الأوقات الأسحار وبعد الصلوات، مع جواز الاستغفار في كل وقت."
+            }
+          ]}
+        />
 
         {/* Footer */}
         <footer className="border-t border-border/40 py-8 mt-8">

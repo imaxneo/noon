@@ -9,6 +9,7 @@ import { DhikrCard, Dhikr } from "@/components/dhikr-card";
 import { AdBanner } from "@/components/ad-banner";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { StructuredData } from "@/components/structured-data";
+import { FAQStructuredData } from "@/components/faq-structured-data";
 import ibrahimiyaData from "../../../../data/azkar/ibrahimiya.json";
 
 export const metadata: Metadata = {
@@ -79,6 +80,13 @@ export default function IbrahimiyaPage() {
               description="الصلاة الإبراهيمية المأثورة - صل على النبي محمد وآله وصحبه أجمعين"
               emoji="🕌"
             />
+            <section className="prose prose-neutral max-w-none mb-6 text-muted-foreground site-text">
+              <p>
+                الصلاة الإبراهيمية من أعظم صيغ الصلاة على النبي ﷺ، وردت في الأحاديث الصحيحة،
+                ويُستحب الإكثار منها لما فيها من الأجر العظيم ورفعة الدرجات. اقرأها بخشوع
+                وتدبر واجعلها عادة يومية بعد الصلوات وفي أوقات الذكر.
+              </p>
+            </section>
             
             {/* Dhikr Cards */}
             <section className="grid grid-cols-1 gap-6 w-full" aria-labelledby="dhikr-list">
@@ -126,6 +134,25 @@ export default function IbrahimiyaPage() {
             </div>
           </div>
         </main>
+        <FAQStructuredData
+          title="الصلاة الإبراهيمية - أسئلة شائعة"
+          description="إجابات عن أكثر الأسئلة شيوعاً حول الصلاة الإبراهيمية وصيغتها ووقتها"
+          url="https://www.kintego.site/azkar/ibrahimiya"
+          faqs={[
+            {
+              question: "ما هي الصلاة الإبراهيمية الصحيحة؟",
+              answer: "هي الصيغة الواردة في التشهد: اللهم صل على محمد وعلى آل محمد كما صليت على إبراهيم وعلى آل إبراهيم..."
+            },
+            {
+              question: "متى يُستحب قول الصلاة الإبراهيمية؟",
+              answer: "تُقال في التشهد في الصلاة، ويُستحب الإكثار منها في الأذكار اليومية وخلال اليوم."
+            },
+            {
+              question: "ما فضل الصلاة على النبي ﷺ؟",
+              answer: "من صلى على النبي ﷺ صلاة واحدة صلى الله عليه بها عشرًا ورفعت له عشر درجات وحطت عنه عشر خطيئات."
+            }
+          ]}
+        />
 
         {/* Footer */}
         <footer className="border-t border-border/40 py-8 mt-8">
