@@ -9,6 +9,7 @@ import { DhikrCard, Dhikr } from "@/components/dhikr-card";
 import { AdBanner } from "@/components/ad-banner";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { StructuredData } from "@/components/structured-data";
+import { FAQStructuredData } from "@/components/faq-structured-data";
 import sleepData from "../../../../data/azkar/sleep.json";
 
 export const metadata: Metadata = {
@@ -79,6 +80,12 @@ export default function SleepPage() {
               description="أذكار النوم المأثورة من القرآن والسنة - حصن المسلم عند النوم"
               emoji="🌙"
             />
+            <section className="prose prose-neutral max-w-none mb-6 text-muted-foreground site-text">
+              <p>
+                أذكار النوم تجمع بين الحفظ والسكينة قبل الخلود للنوم. داوم على الأذكار المأثورة
+                بقلب حاضر، واقرأ ما تيسر من القرآن كسورة الملك وآية الكرسي وخواتيم البقرة.
+              </p>
+            </section>
             
             {/* Dhikr Cards */}
             <section className="grid grid-cols-1 gap-6 w-full" aria-labelledby="dhikr-list">
@@ -126,6 +133,16 @@ export default function SleepPage() {
             </div>
           </div>
         </main>
+        <FAQStructuredData
+          title="أذكار النوم - أسئلة شائعة"
+          description="إجابات عن الأسئلة الشائعة حول أذكار النوم الصحيحة وعدد مرات تكرارها"
+          url="https://www.kintego.site/azkar/sleep"
+          faqs={[
+            { question: "ما أفضل وقت لقراءة أذكار النوم؟", answer: "قبل النوم مباشرة وبعد الاستلقاء على الجانب الأيمن." },
+            { question: "هل تُكرر الأذكار؟", answer: "اتبع التكرار الوارد إن وُجد، كقراءة آية الكرسي مرة واحدة وخواتيم البقرة مرة." },
+            { question: "هل يلزم ترتيب معين؟", answer: "لا يلزم ترتيب محدد، والغاية حضور القلب والطمأنينة." }
+          ]}
+        />
 
         {/* Footer */}
         <footer className="border-t border-border/40 py-8 mt-8">
