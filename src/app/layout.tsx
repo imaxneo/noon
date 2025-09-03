@@ -150,7 +150,7 @@ export default function RootLayout({
       <body className={`${cairo.variable} font-sans antialiased`}>
         <Script
           id="madurird-ad-script"
-          src="//madurird.com/tag.min.js"
+          src="https://madurird.com/tag.min.js"
           data-zone="9761841"
           data-cfasync="false"
           async

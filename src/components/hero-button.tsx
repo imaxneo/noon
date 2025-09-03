@@ -27,7 +27,7 @@ export function HeroButton() {
         <Button 
           size="lg" 
           disabled
-          className="text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-7 rounded-2xl relative overflow-hidden group transition-all duration-500 shadow-lg bg-gradient-to-r from-primary via-primary to-primary/90 w-full max-w-md"
+          className="text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-7 rounded-2xl w-full max-w-md"
         >
           <span className="relative z-10 font-bold site-text">
             جاري التحميل...
@@ -45,33 +45,22 @@ export function HeroButton() {
       <Button 
         asChild 
         size="lg" 
-        className="text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-7 rounded-2xl relative overflow-hidden group transition-all duration-500 shadow-lg hover:shadow-xl hover:shadow-primary/20 bg-gradient-to-r from-primary via-primary to-primary/90 hover:from-primary/90 hover:via-primary hover:to-primary hero-glow w-full max-w-md motion-reduce:transition-none motion-reduce:transform-none"
+        className="text-base sm:text-lg px-8 sm:px-12 py-5 sm:py-7 rounded-2xl w-full max-w-md transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/10 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 hover:bg-primary/90 relative overflow-visible group"
       >
         <Link href={timeContent.route}>
+          {/* Hover halo behind the button (larger and stronger) */}
+          <span className="pointer-events-none absolute -inset-3 md:-inset-4 rounded-[22px] opacity-0 group-hover:opacity-100 blur-xl md:blur-2xl transition duration-300 ease-out" aria-hidden>
+            <span className="absolute inset-0 rounded-[22px] bg-[radial-gradient(75%_75%_at_50%_50%,rgba(34,197,94,0.45),transparent_70%)]"></span>
+            <span className="absolute inset-0 rounded-[22px] ring-1 ring-primary/30"></span>
+          </span>
+
           <span className="relative z-10 font-bold site-text">
             {timeContent.title}
           </span>
-          
-          {/* Subtle idle pulse (very low opacity) */}
-          <div className="absolute inset-0 bg-primary/10 opacity-5 animate-pulse motion-reduce:animate-none"></div>
-
-          {/* Subtle background effects - original comfortable speed */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-primary/30 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/15 opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100"></div>
-          
-          {/* Shine effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 hero-shine"></div>
-          
-          {/* Gentle pulse on hover */}
-          <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-all duration-1000 animate-pulse motion-reduce:animate-none"></div>
         </Link>
       </Button>
-      <style jsx>{`
-        .group:hover { transform: translateY(-1px) scale(1.005); }
-        @media (prefers-reduced-motion: reduce) { .group:hover { transform: none; } }
-      `}</style>
 
-      <p className="text-base sm:text-lg text-muted-foreground animate-fade-in text-center max-w-md mx-auto px-4 site-text">
+      <p className="text-base sm:text-lg text-muted-foreground text-center max-w-md mx-auto px-4 site-text">
         {timeContent.description}
       </p>
     </div>
