@@ -93,6 +93,24 @@ const nextConfig = {
             value: 'max-age=31536000; includeSubDomains; preload'
           }
         ]
+      },
+      {
+        source: '/:all*(css|js)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=2592000, immutable'
+          }
+        ]
+      },
+      {
+        source: '/:all*(png|jpg|jpeg|svg|gif|webp|avif)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
       }
     ]
   },

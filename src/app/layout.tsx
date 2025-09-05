@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Cairo } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { DuaModalWrapper } from "@/components/dua-modal-wrapper";
 import { Analytics } from "@vercel/analytics/next"
 import Script from "next/script";
 import { DailyReset } from "@/components/daily-reset";
@@ -181,7 +180,6 @@ export default function RootLayout({
         </a>
         
         <ThemeProvider>
-          <DuaModalWrapper />
           {/* Fallback interstitial: load on first user interaction anywhere */}
           <InterstitialOnAnyClick zone="9828288" src="https://groleegni.net/vignette.min.js" />
           <BannerAd
