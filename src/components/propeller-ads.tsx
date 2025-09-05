@@ -124,8 +124,7 @@ export function InterstitialOnAnyClick({ zone, src }: InterstitialOnAnyClickProp
       try {
         const s = document.createElement('script')
         s.src = src
-        ;(s as any).dataset = (s as any).dataset || ({} as DOMStringMap)
-        s.setAttribute('data-zone', zone)
+        s.dataset.zone = zone
         s.async = true
         document.body.appendChild(s)
       } catch {}
