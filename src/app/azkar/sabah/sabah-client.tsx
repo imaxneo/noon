@@ -8,7 +8,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { SectionHeader } from "@/components/section-header"
 import { DhikrCard, Dhikr } from "@/components/dhikr-card"
-import { AdBanner } from "@/components/ad-banner"
+import { AdManager } from "@/components/ad-manager"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { Loading } from "@/components/loading"
 
@@ -92,7 +92,7 @@ export function SabahPageClient({ dhikrList }: SabahPageClientProps) {
                 {/* Inline ads every 4 dhikrs */}
                 {(index + 1) % 4 === 0 && (
                   <aside className="my-4" aria-label="إعلان">
-                    <AdBanner placement="inline" index={index} />
+                    <AdManager placement="inline" index={index} />
                   </aside>
                 )}
               </article>

@@ -250,7 +250,7 @@ export function resetAllCounters(): void {
   
   try {
     const keys = Object.keys(localStorage)
-    const counterKeys = keys.filter(key => key.startsWith('counter-'))
+    const counterKeys = keys.filter(key => key.startsWith('azkar:') || key.startsWith('counter-'))
     
     counterKeys.forEach(key => {
       const stored = localStorage.getItem(key)
