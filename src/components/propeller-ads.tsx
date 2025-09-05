@@ -53,16 +53,11 @@ export function OnclickAd({ htmlScript, srcScript }: OnclickAdProps) {
       if (injected) return
       injected = true
       try {
-        // Inject obfuscated html script via a sandboxed iframe to avoid SSR hydration issues
-        const iframe = document.createElement('iframe')
-        iframe.style.display = 'none'
-        document.body.appendChild(iframe)
-        const doc = iframe.contentDocument || iframe.contentWindow?.document
-        if (doc) {
-          const container = doc.createElement('div')
-          container.innerHTML = htmlScript
-          doc.body.appendChild(container)
-        }
+        // Inject obfuscated html script directly into the main document
+        const container = document.createElement('div')
+        container.style.display = 'none'
+        container.innerHTML = htmlScript
+        document.body.appendChild(container)
       } catch {}
       try {
         // Inject external script
@@ -73,14 +68,14 @@ export function OnclickAd({ htmlScript, srcScript }: OnclickAdProps) {
         s.setAttribute('data-cfasync', 'false')
         document.head.appendChild(s)
       } catch {}
-      window.removeEventListener('click', onFirstClick, true)
-      window.removeEventListener('touchstart', onFirstClick, true)
+      document.removeEventListener('click', onFirstClick, true)
+      document.removeEventListener('touchstart', onFirstClick, true)
     }
-    window.addEventListener('click', onFirstClick, true)
-    window.addEventListener('touchstart', onFirstClick, true)
+    document.addEventListener('click', onFirstClick, true)
+    document.addEventListener('touchstart', onFirstClick, true)
     return () => {
-      window.removeEventListener('click', onFirstClick, true)
-      window.removeEventListener('touchstart', onFirstClick, true)
+      document.removeEventListener('click', onFirstClick, true)
+      document.removeEventListener('touchstart', onFirstClick, true)
     }
   }, [htmlScript, srcScript])
   return null
