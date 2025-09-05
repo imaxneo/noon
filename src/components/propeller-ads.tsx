@@ -43,14 +43,14 @@ export function PropellerAds({ zoneId, placement, index = 0 }: PropellerAdsProps
       fallbackHeight="h-16"
       className="w-full"
     >
-      <div 
-        id={`propeller-ad-${placement}-${index}`}
-        className="w-full h-16 bg-muted/50 rounded flex items-center justify-center"
-      >
+    <div 
+      id={`propeller-ad-${placement}-${index}`}
+      className="w-full h-16 bg-muted/50 rounded flex items-center justify-center"
+    >
         <span className="text-xs text-muted-foreground">
           {isLoaded ? "تم تحميل الإعلان" : "جاري تحميل الإعلان..."}
         </span>
-      </div>
+    </div>
     </LazyAdContainer>
   )
 }

@@ -1,5 +1,7 @@
 // Performance monitoring utilities
-export function reportWebVitals(metric: any) {
+import { Metric } from 'web-vitals'
+
+export function reportWebVitals(metric: Metric) {
   // Log to console in development
   if (process.env.NODE_ENV === 'development') {
     console.log('Web Vitals:', metric)
