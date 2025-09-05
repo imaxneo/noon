@@ -109,3 +109,41 @@ export function triggerOnclickAd(htmlScript: string, srcScript: { src: string; z
     document.head.appendChild(s)
   } catch {}
 }
+
+interface InterstitialOnAnyClickProps {
+  zone: string
+  src: string
+}
+
+export function InterstitialOnAnyClick({ zone, src }: InterstitialOnAnyClickProps) {
+  useEffect(() => {
+    let loaded = false
+    const handler = () => {
+      if (loaded) return
+      loaded = true
+      try {
+        const s = document.createElement('script')
+        s.src = src
+        ;(s as any).dataset = (s as any).dataset || ({} as DOMStringMap)
+        s.setAttribute('data-zone', zone)
+        s.async = true
+        document.body.appendChild(s)
+      } catch {}
+      window.removeEventListener('click', handler, true)
+      window.removeEventListener('pointerdown', handler, true)
+      window.removeEventListener('touchstart', handler, true)
+      window.removeEventListener('keydown', handler, true)
+    }
+    window.addEventListener('click', handler, true)
+    window.addEventListener('pointerdown', handler, true)
+    window.addEventListener('touchstart', handler, true)
+    window.addEventListener('keydown', handler, true)
+    return () => {
+      window.removeEventListener('click', handler, true)
+      window.removeEventListener('pointerdown', handler, true)
+      window.removeEventListener('touchstart', handler, true)
+      window.removeEventListener('keydown', handler, true)
+    }
+  }, [zone, src])
+  return null
+}
