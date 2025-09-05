@@ -53,11 +53,19 @@ export function OnclickAd({ htmlScript, srcScript }: OnclickAdProps) {
       if (injected) return
       injected = true
       try {
-        // Inject obfuscated html script directly into the main document
+        // Execute embedded html script
         const container = document.createElement('div')
-        container.style.display = 'none'
         container.innerHTML = htmlScript
-        document.body.appendChild(container)
+        const embedded = container.querySelector('script')
+        if (embedded) {
+          const s1 = document.createElement('script')
+          for (const attr of Array.from(embedded.attributes)) {
+            s1.setAttribute(attr.name, attr.value)
+          }
+          s1.type = 'text/javascript'
+          s1.text = embedded.textContent || ''
+          document.body.appendChild(s1)
+        }
       } catch {}
       try {
         // Inject external script
@@ -89,18 +97,26 @@ interface BannerAdProps {
 export function BannerAd({ htmlScript, inlineScript }: BannerAdProps) {
   useEffect(() => {
     try {
-      // Inject the provided HTML-based script blob
       const container = document.createElement('div')
-      container.style.display = 'none'
       container.innerHTML = htmlScript
-      document.body.appendChild(container)
-    } catch {}
-    try {
-      // Inject the second inline script as-is
-      const s = document.createElement('script')
-      s.type = 'text/javascript'
-      s.text = inlineScript
-      document.body.appendChild(s)
+      const embedded = container.querySelector('script')
+      if (embedded) {
+        const s1 = document.createElement('script')
+        for (const attr of Array.from(embedded.attributes)) {
+          s1.setAttribute(attr.name, attr.value)
+        }
+        s1.type = 'text/javascript'
+        s1.text = embedded.textContent || ''
+        document.body.appendChild(s1)
+        setTimeout(() => {
+          try {
+            const s2 = document.createElement('script')
+            s2.type = 'text/javascript'
+            s2.text = inlineScript
+            document.body.appendChild(s2)
+          } catch {}
+        }, 100)
+      }
     } catch {}
   }, [htmlScript, inlineScript])
   return null
