@@ -135,10 +135,11 @@ const nextConfig = {
   // تحسين البناء
   experimental: {
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+    webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB'],
   },
   
   // حماية ضد التلاعب في الملفات
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, dev }) => {
     if (!isServer) {
       // حماية العميل
       config.resolve.fallback = {
@@ -149,9 +150,36 @@ const nextConfig = {
       }
     }
     
-    // حماية ضد التلاعب في البناء
-    config.optimization.minimize = true
-    config.optimization.minimizer = config.optimization.minimizer || []
+    // تحسين الأداء
+    if (!dev) {
+      // Tree shaking وتحسين الحجم
+      config.optimization.usedExports = true
+      config.optimization.sideEffects = false
+      
+      // تحسين CSS
+      config.optimization.minimize = true
+      config.optimization.minimizer = config.optimization.minimizer || []
+      
+      // تحسين JavaScript
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+            priority: 10,
+          },
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'all',
+            priority: 5,
+            reuseExistingChunk: true,
+          },
+        },
+      }
+    }
     
     return config
   }

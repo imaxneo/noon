@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 import Script from "next/script";
 import { DailyReset } from "@/components/daily-reset";
 import { OnclickAd, BannerAd, InterstitialOnAnyClick } from "@/components/propeller-ads";
+import { initPerformanceOptimizations, checkPerformanceBudget } from "@/lib/performance";
 
 const cairo = Cairo({
   variable: "--font-cairo",
@@ -118,6 +119,13 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" suppressHydrationWarning>
       <head>
+        {/* Critical CSS - Inline for faster LCP */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            *{box-sizing:border-box}html{font-family:'Cairo',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;text-size-adjust:100%}body{margin:0;padding:0;background-color:#fefefe;color:#1a1a1a;font-feature-settings:"kern" 1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}[dir="rtl"]{text-align:right}.container{width:100%;max-width:1280px;margin:0 auto;padding:0 1rem}.hero-section{padding:2rem 0;text-align:center;background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);min-height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center}.hero-title{font-size:2.5rem;font-weight:700;color:#15803d;margin-bottom:1rem;line-height:1.2}.hero-subtitle{font-size:1.25rem;color:#166534;margin-bottom:2rem;max-width:600px}.btn-primary{background-color:#16a34a;color:white;padding:0.75rem 1.5rem;border-radius:0.5rem;text-decoration:none;font-weight:600;display:inline-block;transition:background-color 0.2s ease;border:none;cursor:pointer;font-size:1rem}.btn-primary:hover{background-color:#15803d}.nav{background-color:white;box-shadow:0 1px 3px rgba(0,0,0,0.1);position:sticky;top:0;z-index:50}.nav-container{display:flex;justify-content:space-between;align-items:center;padding:1rem}.nav-logo{font-size:1.5rem;font-weight:700;color:#16a34a;text-decoration:none}.card{background-color:white;border-radius:0.5rem;box-shadow:0 1px 3px rgba(0,0,0,0.1);padding:1.5rem;margin-bottom:1rem}.loading{background-color:#f3f4f6;border-radius:0.5rem;height:4rem;display:flex;align-items:center;justify-content:center;color:#6b7280;font-size:0.875rem}@media (max-width:640px){.container{padding:0 0.75rem}.hero-title{font-size:2rem}.hero-subtitle{font-size:1.125rem}.btn-primary{padding:0.875rem 1.25rem;font-size:0.875rem}}.will-change-transform{will-change:transform}.contain-layout{contain:layout}.contain-paint{contain:paint}@font-face{font-family:'Cairo';font-display:swap;src:url('https://fonts.gstatic.com/s/cairo/v28/SLXgc1nY6HkvalIvTp2mxdt0.woff2') format('woff2');unicode-range:U+0600-06FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE80-FEFC;font-weight:400;font-style:normal}
+          `
+        }} />
+        
         {/* Google Fonts - Preconnect */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -166,6 +174,18 @@ export default function RootLayout({
             });
           `}
         </Script>
+        {/* Performance optimizations */}
+        <Script id="performance-init" strategy="afterInteractive">
+          {`
+            (function() {
+              ${initPerformanceOptimizations.toString()}
+              ${checkPerformanceBudget.toString()}
+              initPerformanceOptimizations();
+              checkPerformanceBudget();
+            })();
+          `}
+        </Script>
+        
         {/* Interstitial (after head) */}
         <Script id="groleegni-interstitial" strategy="afterInteractive">
           {`(function(s){s.dataset.zone='9828288',s.src='https://groleegni.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`}

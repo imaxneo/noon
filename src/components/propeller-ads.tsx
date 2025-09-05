@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
+import { LazyAdContainer } from "./lazy-ad-container"
 
 interface PropellerAdsProps {
   zoneId: string
@@ -9,32 +10,48 @@ interface PropellerAdsProps {
 }
 
 export function PropellerAds({ zoneId, placement, index = 0 }: PropellerAdsProps) {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const scriptRef = useRef<HTMLScriptElement | null>(null)
+
   useEffect(() => {
-    // Load PropellerAds script
+    if (isLoaded) return
+
+    // Load PropellerAds script only when needed
     const script = document.createElement('script')
     script.src = 'https://fpyf8.com/88/tag.min.js'
     script.setAttribute('data-zone', zoneId)
     script.setAttribute('data-cfasync', 'false')
     script.async = true
+    script.defer = true
     
-    // Add script to head
+    script.onload = () => setIsLoaded(true)
+    script.onerror = () => setIsLoaded(true) // Mark as loaded even on error
+    
+    scriptRef.current = script
     document.head.appendChild(script)
     
     // Cleanup
     return () => {
-      if (document.head.contains(script)) {
-        document.head.removeChild(script)
+      if (scriptRef.current && document.head.contains(scriptRef.current)) {
+        document.head.removeChild(scriptRef.current)
       }
     }
-  }, [zoneId])
+  }, [zoneId, isLoaded])
 
   return (
-    <div 
-      id={`propeller-ad-${placement}-${index}`}
-      className="w-full h-16 bg-muted/50 rounded flex items-center justify-center"
+    <LazyAdContainer 
+      fallbackHeight="h-16"
+      className="w-full"
     >
-      <span className="text-xs text-muted-foreground">جاري تحميل الإعلان...</span>
-    </div>
+      <div 
+        id={`propeller-ad-${placement}-${index}`}
+        className="w-full h-16 bg-muted/50 rounded flex items-center justify-center"
+      >
+        <span className="text-xs text-muted-foreground">
+          {isLoaded ? "تم تحميل الإعلان" : "جاري تحميل الإعلان..."}
+        </span>
+      </div>
+    </LazyAdContainer>
   )
 }
 
