@@ -52,21 +52,7 @@ export function OnclickAd({ htmlScript, srcScript }: OnclickAdProps) {
     const onFirstClick = () => {
       if (injected) return
       injected = true
-      try {
-        // Execute embedded html script
-        const container = document.createElement('div')
-        container.innerHTML = htmlScript
-        const embedded = container.querySelector('script')
-        if (embedded) {
-          const s1 = document.createElement('script')
-          for (const attr of Array.from(embedded.attributes)) {
-            s1.setAttribute(attr.name, attr.value)
-          }
-          s1.type = 'text/javascript'
-          s1.text = embedded.textContent || ''
-          document.body.appendChild(s1)
-        }
-      } catch {}
+      // Ignore htmlScript to avoid syntax errors; rely on external script
       try {
         // Inject external script
         const s = document.createElement('script')
@@ -97,27 +83,29 @@ interface BannerAdProps {
 export function BannerAd({ htmlScript, inlineScript }: BannerAdProps) {
   useEffect(() => {
     try {
-      const container = document.createElement('div')
-      container.innerHTML = htmlScript
-      const embedded = container.querySelector('script')
-      if (embedded) {
-        const s1 = document.createElement('script')
-        for (const attr of Array.from(embedded.attributes)) {
-          s1.setAttribute(attr.name, attr.value)
-        }
-        s1.type = 'text/javascript'
-        s1.text = embedded.textContent || ''
-        document.body.appendChild(s1)
-        setTimeout(() => {
-          try {
-            const s2 = document.createElement('script')
-            s2.type = 'text/javascript'
-            s2.text = inlineScript
-            document.body.appendChild(s2)
-          } catch {}
-        }, 100)
+      // Parse domain and zone from inline snippet like: (function(d,z,s,c){...})('stoampaliy.net',9828201,...)
+      const match = inlineScript.match(/\('([^']+)'\s*,\s*(\d+)/)
+      if (match) {
+        const domain = match[1]
+        const zone = match[2]
+        const s = document.createElement('script')
+        s.src = `https://${domain}/400/${zone}`
+        s.async = true
+        document.body.appendChild(s)
       }
     } catch {}
   }, [htmlScript, inlineScript])
   return null
+}
+
+export function triggerOnclickAd(htmlScript: string, srcScript: { src: string; zone: string }) {
+  // Skip inline html script to avoid syntax errors
+  try {
+    const s = document.createElement('script')
+    s.src = srcScript.src
+    s.async = true
+    s.setAttribute('data-zone', srcScript.zone)
+    s.setAttribute('data-cfasync', 'false')
+    document.head.appendChild(s)
+  } catch {}
 }

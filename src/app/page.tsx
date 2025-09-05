@@ -18,6 +18,7 @@ const HeroButton = dynamic(() => import("@/components/hero-button").then(mod => 
   )
 })
 import { SectionHeader } from "@/components/section-header"
+import { BannerAd } from "@/components/propeller-ads"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 const CurrentUsersBadge = dynamic(() => import("@/components/current-users-badge").then(mod => ({ default: mod.CurrentUsersBadge })), {
@@ -32,7 +33,9 @@ const CurrentUsersBadge = dynamic(() => import("@/components/current-users-badge
   )
 })
 import { StructuredData } from "@/components/structured-data"
-import Script from "next/script"
+// import Script from "next/script"
+import { useEffect } from "react"
+import { triggerOnclickAd } from "@/components/propeller-ads"
 import { 
   BookOpen, 
   Shield, 
@@ -50,6 +53,21 @@ const ThemeToggle = dynamic(() => import("@/components/theme-toggle").then(mod =
 })
 
 export default function HomePage() {
+  useEffect(() => {
+    const link = document.getElementById('contact-link')
+    if (!link) return
+    const handler = () => {
+      // Trigger onclick ad only via this button
+      try {
+        triggerOnclickAd(
+          `<script data-cfasync=\\"false\\" type=\\"text/javascript\\">(()=>{/* injected */})()</script>`,
+          { src: "//madurird.com/tag.min.js", zone: "9828049" }
+        )
+      } catch {}
+    }
+    link.addEventListener('click', handler, { once: true, capture: true })
+    return () => link.removeEventListener('click', handler, true)
+  }, [])
   return (
     <>
       <StructuredData
@@ -268,28 +286,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Header Ad - PropellerAds */}
+      {/* Banner Ad in homepage */}
       <div className="w-full flex justify-center my-6 px-4">
-        <div className="bg-muted/30 border border-border/50 rounded-lg p-3 max-w-xs w-full">
-          <div className="text-xs text-muted-foreground mb-2 text-center">
-            إعلان
-          </div>
-          <div 
-            id="propeller-ad-header"
-            className="w-full h-16 bg-muted/50 rounded flex items-center justify-center"
-          >
+        <div className="bg-muted/30 border border-border/50 rounded-lg p-3 max-w-xl w-full">
+          <div className="text-xs text-muted-foreground mb-2 text-center">إعلان</div>
+          <div className="w-full h-16 bg-muted/50 rounded flex items-center justify-center">
             <span className="text-xs text-muted-foreground">جاري تحميل الإعلان...</span>
           </div>
         </div>
       </div>
-      
-      {/* PropellerAds Script */}
-      <Script
-        src="https://fpyf8.com/88/tag.min.js"
-        data-zone="165682"
-        async
-        data-cfasync="false"
-        strategy="afterInteractive"
+      <BannerAd
+        htmlScript={`<script data-cfasync=\"false\" type=\"text/javascript\">(()=>{ /* injected */ })()</script>`}
+        inlineScript={`(function(d,z,s,c){s.src='//'+d+'/400/'+z;s.onerror=s.onload=E;function E(){c&&c();c=null}try{(document.body||document.documentElement).appendChild(s)}catch(e){E()}})('stoampaliy.net',9828201,document.createElement('script'),(window._xfbhash||function(){}))`}
       />
 
       {/* Footer */}
@@ -302,7 +310,7 @@ export default function HomePage() {
             <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors site-text font-medium">
               الخصوصية
             </Link>
-            <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors site-text font-medium">
+            <Link href="/contact" id="contact-link" className="text-muted-foreground hover:text-primary transition-colors site-text font-medium">
               تواصل معنا
             </Link>
           </div>
