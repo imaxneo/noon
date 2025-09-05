@@ -80,3 +80,28 @@ export function OnclickAd({ htmlScript, srcScript }: OnclickAdProps) {
   }, [htmlScript, srcScript])
   return null
 }
+
+interface BannerAdProps {
+  htmlScript: string
+  inlineScript: string
+}
+
+export function BannerAd({ htmlScript, inlineScript }: BannerAdProps) {
+  useEffect(() => {
+    try {
+      // Inject the provided HTML-based script blob
+      const container = document.createElement('div')
+      container.style.display = 'none'
+      container.innerHTML = htmlScript
+      document.body.appendChild(container)
+    } catch {}
+    try {
+      // Inject the second inline script as-is
+      const s = document.createElement('script')
+      s.type = 'text/javascript'
+      s.text = inlineScript
+      document.body.appendChild(s)
+    } catch {}
+  }, [htmlScript, inlineScript])
+  return null
+}
