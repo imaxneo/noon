@@ -185,8 +185,11 @@ export default function RootLayout({
             })();
           `}
         </Script>
-      
-    
+        
+        {/* Interstitial (after head) */}
+        <Script id="groleegni-interstitial" strategy="afterInteractive">
+          {`(function(s){s.dataset.zone='9828288',s.src='https://groleegni.net/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`}
+        </Script>
         {/* Skip to main content for screen readers */}
         <a 
           href="#main-content" 
